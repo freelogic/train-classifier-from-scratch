@@ -16,9 +16,9 @@ test_data = new_data[sep:]                          # test data (30%)
 
 
 # build network
-tf_input = tf.placeholder(tf.float32, [None, 25], "input")
-tfx = tf_input[:, :21]
-tfy = tf_input[:, 21:]
+tf_input = tf.placeholder(tf.float32, [None, 25], "input")  #总计25个
+tfx = tf_input[:, :21]  #0-20的前21个数据是所有分类扁平化归一化为onehot后的21类；
+tfy = tf_input[:, 21:]  #21,22,23,24 处理后的数据的最后4个值是目标的4种分类的onehot
 
 l1 = tf.layers.dense(tfx, 128, tf.nn.relu, name="l1")
 l2 = tf.layers.dense(l1, 128, tf.nn.relu, name="l2")
@@ -62,7 +62,7 @@ for t in range(4000):
         ax2.plot(steps, accuracies, label="accuracy")
         ax2.set_ylim(ymax=1)
         ax2.set_ylabel("accuracy")
-        plt.pause(0.01)
+        plt.pause(0.01)  # 动态增加曲线变化
 
 plt.ioff()
 plt.show()
